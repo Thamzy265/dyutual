@@ -1,0 +1,64 @@
+.homepage{
+    background-image: url("../images/mm.PNG");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+video {
+    background: white;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    max-width: 100%;
+    margin: 0 5%;
+    box-sizing: border-box;
+    border-radius: 2px;
+    padding: 0;
+  }
+.form-log{
+    height: 100vh;
+}
+.full-window{
+    height: 100vh;
+}
+.side-menu{
+    height: 100vh;
+    background-color: #8e5d1c;
+}
+.bg-grey{
+    background-color: #8e5d1c;
+}
+.icons{
+    height: 2.5rem;
+}
+.logo{
+    height: 5rem;
+}
+.admin-card{
+    height: 8rem;
+    width: 12rem;
+}
+.card-h{
+    height: 5rem;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+.bg-optimus{
+    background-image: url("../images/mm.PNG");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100%;
+}
+textarea{
+    overflow-y: scroll;
+}
+.participants{
+    height: 90%;
+    overflow-y: scroll;
+}
+.material{
+   width: 125%;
+   height: 100%;
+}
