@@ -1,5 +1,16 @@
 <?php
+/**
+ * WARNING: This file is not used.
+ *
+ * It is a copy from the Blood Bank project. No file in DYUni includes it. It
+ * also includes two files that are not in this project:
+ * `../vendor/autoload.php` and `../model/group.php`. You can delete this file.
+ *
+ * The Twilio credentials that were in this file are removed. They are now in
+ * the file `.env`.
+ */
 require "../vendor/autoload.php";
+require_once __DIR__ . '/env.php';
 require "../model/group.php";
 
 class messages extends model
@@ -34,19 +45,32 @@ class messages extends model
 
     public function twiSms($numbers,$body){
 
-        $sid = "ACabdc0b044807cfae195afded0d333417"; // Your Account SID from www.twilio.com/console
-        $token = "93d6b86c63fb3454522557070dd88b1c"; // Your Auth Token from www.twilio.com/console
+        // The credentials come from the file `.env` in the root folder.
+        $sid   = env('TWILIO_ACCOUNT_SID');  // The Account SID from www.twilio.com/console
+        $token = env('TWILIO_AUTH_TOKEN');   // The Auth Token from www.twilio.com/console
+        $from  = env('TWILIO_FROM_NUMBER');  // A valid Twilio telephone number
 
-        $client = new Twilio\Rest\Client($sid, $token);
-        $message = $client->messages->create(
-            '+265884106910', // Text this number
-            array(
-                'from' => '+12078020244', // From a valid Twilio number
-                'body' => $body
-            )
-        );
+        // Do nothing if the credentials are absent.
+        if (empty($sid) || empty($token) || empty($from)) {
+            error_log('Twilio is not configured. Set the TWILIO_ keys in the file .env');
+            return false;
+        }
 
-        print $message->sid;
+        try {
+            $client = new Twilio\Rest\Client($sid, $token);
+            $message = $client->messages->create(
+                $numbers, // The telephone number of the receiver
+                array(
+                    'from' => $from,
+                    'body' => $body
+                )
+            );
+
+            return $message->sid;
+        } catch (Exception $e) {
+            error_log('Failed to send the SMS message: ' . $e->getMessage());
+            return false;
+        }
     }
 
     public function emergencyTbl(){
